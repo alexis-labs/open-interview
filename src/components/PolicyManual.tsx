@@ -1,6 +1,7 @@
 import { getDayConfig } from '../game/data/days';
 import { POLICY_RULES } from '../game/data/rules';
-import { useGameStore } from '../game/store/gameStore';
+import { useGameStore } from '../game/store/gameStore';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 const ruleDocMap: Record<number, 'application' | 'idBadge' | 'resume' | 'reference'> = {
   1: 'application',
@@ -26,7 +27,8 @@ export function PolicyManual() {
   const setActiveDocument = useGameStore((s) => s.setActiveDocument);
   const reviewedRuleIds = useGameStore((s) => s.reviewedRuleIds);
   const toggleRuleReview = useGameStore((s) => s.toggleRuleReview);
-  const phase = useGameStore((s) => s.phase);
+  const phase = useGameStore((s) => s.phase);
+  const { paperHover, paperPress } = usePaperSounds();
 
   const day = getDayConfig(dayId);
   const activeSet = new Set(day.activeRuleIds);
@@ -63,7 +65,12 @@ export function PolicyManual() {
             <button
               type="button"
               className={`policy-manual__detail-review ${reviewedSet.has(focusRule.id) ? 'policy-manual__detail-review--done' : ''}`}
-              onClick={() => toggleRuleReview(focusRule.id)}
+              onMouseEnter={paperHover}
+              onFocus={paperHover}
+              onClick={() => {
+                paperPress();
+                toggleRuleReview(focusRule.id);
+              }}
             >
               {reviewedSet.has(focusRule.id) ? '☑ Reviewed' : '☐ Mark reviewed'}
             </button>
@@ -94,7 +101,12 @@ export function PolicyManual() {
               <button
                 type="button"
                 className={`policy-manual__rule-chip ${isSelected ? 'policy-manual__rule-chip--active' : ''} ${isReviewed ? 'policy-manual__rule-chip--reviewed' : ''}`}
-                onClick={() => handleRuleClick(rule.id)}
+                onMouseEnter={paperHover}
+                onFocus={paperHover}
+                onClick={() => {
+                  paperPress();
+                  handleRuleClick(rule.id);
+                }}
                 aria-pressed={isSelected}
               >
                 <span className="policy-manual__rule-num">{rule.id}</span>
@@ -108,4 +120,4 @@ export function PolicyManual() {
     </section>
   );
 }
-
+

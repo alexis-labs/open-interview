@@ -1,12 +1,14 @@
 import { ONBOARDING_STEPS } from '../game/data/onboarding';
 import { CHARACTERS } from '../game/data/story';
 import { useGameStore } from '../game/store/gameStore';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 export function OnboardingCoach() {
   const onboardingStep = useGameStore((s) => s.onboardingStep);
   const nextOnboardingStep = useGameStore((s) => s.nextOnboardingStep);
   const skipOnboarding = useGameStore((s) => s.skipOnboarding);
   const phase = useGameStore((s) => s.phase);
+  const { paperHover, paperPress } = usePaperSounds();
 
   if (phase !== 'playing' || onboardingStep === null) return null;
 
@@ -40,10 +42,27 @@ export function OnboardingCoach() {
           </p>
         )}
         <div className="onboarding-coach__actions">
-          <button type="button" onClick={nextOnboardingStep}>
+          <button
+            type="button"
+            onMouseEnter={paperHover}
+            onFocus={paperHover}
+            onClick={() => {
+              paperPress();
+              nextOnboardingStep();
+            }}
+          >
             {onboardingStep < ONBOARDING_STEPS.length - 1 ? 'Next' : 'Got it'}
           </button>
-          <button type="button" className="onboarding-coach__skip" onClick={skipOnboarding}>
+          <button
+            type="button"
+            className="onboarding-coach__skip"
+            onMouseEnter={paperHover}
+            onFocus={paperHover}
+            onClick={() => {
+              paperPress();
+              skipOnboarding();
+            }}
+          >
             Skip tour
           </button>
         </div>

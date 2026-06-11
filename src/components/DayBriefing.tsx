@@ -2,6 +2,7 @@ import { getDayConfig, TOTAL_DAYS } from '../game/data/days';
 import { POLICY_RULES } from '../game/data/rules';
 import { CHARACTERS } from '../game/data/story';
 import { useGameStore } from '../game/store/gameStore';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 interface DayBriefingProps {
   inline?: boolean;
@@ -14,6 +15,7 @@ export function DayBriefing({ inline = false }: DayBriefingProps) {
   const day = getDayConfig(dayId);
   const newRules = POLICY_RULES.filter((r) => day.newRuleIds.includes(r.id));
   const bodyLines = day.briefing.filter((line) => !line.startsWith('From:'));
+  const { paperHover, paperPress } = usePaperSounds();
 
   const content = (
     <div className={`day-briefing day-briefing--memo ${inline ? 'day-briefing--inline' : ''}`}>
@@ -98,10 +100,28 @@ export function DayBriefing({ inline = false }: DayBriefingProps) {
       </footer>
 
       <div className="day-briefing__actions">
-        <button type="button" className="day-briefing__start" onClick={startShift}>
+        <button
+          type="button"
+          className="day-briefing__start"
+          onMouseEnter={paperHover}
+          onFocus={paperHover}
+          onClick={() => {
+            paperPress();
+            startShift();
+          }}
+        >
           Begin Shift
         </button>
-        <button type="button" className="day-briefing__cancel" onClick={goToMenu}>
+        <button
+          type="button"
+          className="day-briefing__cancel"
+          onMouseEnter={paperHover}
+          onFocus={paperHover}
+          onClick={() => {
+            paperPress();
+            goToMenu();
+          }}
+        >
           Back
         </button>
       </div>

@@ -1,3 +1,5 @@
+import { SOUND_IDS } from '../game/audio/soundIds';
+import { soundManager } from '../game/audio/soundManager';
 import { DAYS, TOTAL_DAYS } from '../game/data/days';
 import { useGameStore } from '../game/store/gameStore';
 
@@ -6,6 +8,13 @@ export function RunProgress() {
   const runActive = useGameStore((s) => s.runActive);
   const dayId = useGameStore((s) => s.dayId);
   const runComplete = useGameStore((s) => s.runComplete);
+  const startNewRun = useGameStore((s) => s.startNewRun);
+
+  function handleStart() {
+    void soundManager.init();
+    soundManager.play(SOUND_IDS.uiConfirm);
+    startNewRun();
+  }
 
   const currentDay = runActive ? dayId : progress.bestRunDay;
   const progressPct = Math.round((currentDay / TOTAL_DAYS) * 100);
@@ -13,7 +22,12 @@ export function RunProgress() {
   return (
     <div className="day-select run-progress">
       <div className="day-select__header">
-        <h2>Run Progress</h2>
+        <div className="day-select__header-row">
+          <h2>Run Progress</h2>
+          <button type="button" className="day-select__start" onClick={handleStart}>
+            Start New Run
+          </button>
+        </div>
         <div className="day-select__progress" aria-label={`Day ${currentDay} of ${TOTAL_DAYS}`}>
           <div className="day-select__progress-track">
             <div className="day-select__progress-fill" style={{ width: `${progressPct}%` }} />

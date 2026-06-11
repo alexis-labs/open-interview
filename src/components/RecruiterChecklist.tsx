@@ -1,11 +1,13 @@
 import { POLICY_RULES } from '../game/data/rules';
 import { useGameStore } from '../game/store/gameStore';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 export function RecruiterChecklist() {
   const ruleContext = useGameStore((s) => s.ruleContext);
   const reviewedRuleIds = useGameStore((s) => s.reviewedRuleIds);
   const toggleRuleReview = useGameStore((s) => s.toggleRuleReview);
   const phase = useGameStore((s) => s.phase);
+  const { paperHover, paperPress } = usePaperSounds();
 
   if (phase !== 'playing') {
     return (
@@ -39,7 +41,12 @@ export function RecruiterChecklist() {
               <button
                 type="button"
                 className={`recruiter-checklist__item recruiter-checklist__item--toggle ${isReviewed ? 'recruiter-checklist__item--reviewed' : ''}`}
-                onClick={() => toggleRuleReview(rule.id)}
+                onMouseEnter={paperHover}
+                onFocus={paperHover}
+                onClick={() => {
+                  paperPress();
+                  toggleRuleReview(rule.id);
+                }}
               >
                 <span className="recruiter-checklist__icon">{isReviewed ? '☑' : '☐'}</span>
                 {rule.title}

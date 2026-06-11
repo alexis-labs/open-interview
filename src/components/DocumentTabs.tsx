@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGameStore } from '../game/store/gameStore';
 import type { DocumentType } from '../game/types';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 import { DocumentTabIcon } from './DocumentTabIcon';
 
 const TABS: { id: DocumentType; label: string }[] = [
@@ -15,6 +16,7 @@ export function DocumentTabs() {
   const setActiveDocument = useGameStore((s) => s.setActiveDocument);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [switchTab, setSwitchTab] = useState<DocumentType | null>(null);
+  const { paperHover, paperPress } = usePaperSounds();
 
   useEffect(() => {
     if (!switchTab) return;
@@ -28,7 +30,8 @@ export function DocumentTabs() {
     const next = TABS[index].id;
     setSwitchTab(next);
     setActiveDocument(next);
-  }, [setActiveDocument]);
+    paperPress();
+  }, [paperPress, setActiveDocument]);
 
   function onKeyDown(e: React.KeyboardEvent, index: number) {
     let next = index;
@@ -60,6 +63,8 @@ export function DocumentTabs() {
             tabIndex={selected ? 0 : -1}
             title={`${tab.label} (press ${index + 1})`}
             className={`document-tabs__tab ${selected ? 'document-tabs__tab--active' : ''} ${switchTab === tab.id ? 'document-tabs__tab--switch' : ''}`}
+            onMouseEnter={paperHover}
+            onFocus={paperHover}
             onClick={() => focusTab(index)}
             onKeyDown={(e) => onKeyDown(e, index)}
           >

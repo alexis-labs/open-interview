@@ -8,6 +8,7 @@ import { loadSettings, setSoundEnabled } from '../game/engine/settingsStore';
 import { useGameStore } from '../game/store/gameStore';
 
 import { TITLE_LORE } from '../game/data/story';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 
 
@@ -22,12 +23,14 @@ export function TitleScreen() {
   const runComplete = useGameStore((s) => s.runComplete);
 
   const [soundEnabled, setSoundEnabledState] = useState(() => loadSettings().soundEnabled);
+  const { paperHover, paperPress } = usePaperSounds();
 
 
 
   function handleStart() {
 
     void soundManager.init();
+    paperPress();
 
     startNewRun();
 
@@ -91,13 +94,19 @@ export function TitleScreen() {
 
         )}
 
-        <button type="button" className="title-screen__start" onClick={handleStart}>
+        <button
+          type="button"
+          className="title-screen__start"
+          onMouseEnter={paperHover}
+          onFocus={paperHover}
+          onClick={handleStart}
+        >
 
           {!progress.onboardingComplete ? 'Start Orientation' : 'Start New Run'}
 
         </button>
 
-        <label className="title-screen__settings">
+        <label className="title-screen__settings" onMouseEnter={paperHover}>
 
           <input type="checkbox" checked={soundEnabled} onChange={toggleSound} />
 
@@ -105,7 +114,16 @@ export function TitleScreen() {
 
         </label>
 
-        <button type="button" className="title-screen__reset" onClick={resetProgress}>
+        <button
+          type="button"
+          className="title-screen__reset"
+          onMouseEnter={paperHover}
+          onFocus={paperHover}
+          onClick={() => {
+            paperPress();
+            resetProgress();
+          }}
+        >
 
           Reset Progress
 
@@ -118,5 +136,4 @@ export function TitleScreen() {
   );
 
 }
-
 

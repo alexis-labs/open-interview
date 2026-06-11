@@ -5,6 +5,7 @@ import { getDayConfig, TOTAL_DAYS } from '../game/data/days';
 import { CAMPAIGN_ENDING, GAME_OVER_LETTER, getDayEpilogue } from '../game/data/story';
 import { formatViolationSummary } from '../game/engine/decisionFeedback';
 import { CORRECT_REWARD, useGameStore, WRONG_PENALTY } from '../game/store/gameStore';
+import { usePaperSounds } from '../hooks/usePaperSounds';
 
 interface DaySummaryProps {
   inline?: boolean;
@@ -64,6 +65,7 @@ export function DaySummary({ inline = false }: DaySummaryProps) {
   const continueToNextDay = useGameStore((s) => s.continueToNextDay);
   const retryDay = useGameStore((s) => s.retryDay);
   const goToMenu = useGameStore((s) => s.goToMenu);
+  const { paperHover, paperPress } = usePaperSounds();
 
   useEffect(() => {
     if (phase !== 'summary' && phase !== 'gameover') return;
@@ -287,14 +289,41 @@ export function DaySummary({ inline = false }: DaySummaryProps) {
 
           <div className="day-summary__actions">
             {canContinue && (
-              <button type="button" className="day-summary__continue" onClick={continueToNextDay}>
+              <button
+                type="button"
+                className="day-summary__continue"
+                onMouseEnter={paperHover}
+                onFocus={paperHover}
+                onClick={() => {
+                  paperPress();
+                  continueToNextDay();
+                }}
+              >
                 Continue to Day {dayId + 1}
               </button>
             )}
-            <button type="button" className="day-summary__reset" onClick={retryDay}>
+            <button
+              type="button"
+              className="day-summary__reset"
+              onMouseEnter={paperHover}
+              onFocus={paperHover}
+              onClick={() => {
+                paperPress();
+                retryDay();
+              }}
+            >
               Retry Shift
             </button>
-            <button type="button" className="day-summary__menu" onClick={goToMenu}>
+            <button
+              type="button"
+              className="day-summary__menu"
+              onMouseEnter={paperHover}
+              onFocus={paperHover}
+              onClick={() => {
+                paperPress();
+                goToMenu();
+              }}
+            >
               Main Menu
             </button>
           </div>
