@@ -24,7 +24,7 @@ export function CandidateColumn() {
       <aside className="candidate-col candidate-col--idle">
         <div className="candidate-col__empty">
           <span className="candidate-col__empty-icon">◫</span>
-          <p>Waiting for the next candidate</p>
+          <p>Waiting for the next brave clipboard</p>
         </div>
       </aside>
     );

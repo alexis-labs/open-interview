@@ -5,9 +5,9 @@ export const CHARACTERS = {
 } as const;
 
 export const TITLE_LORE = {
-  hook: 'Your predecessor vanished into a wellness offsite. The queue did not.',
+  hook: 'Your predecessor vanished into a wellness offsite. The queue formed a tiny angry conga line.',
   propaganda: '"People are our most depreciable asset." — OpenCorp Annual Report, p. 12',
-  incident: 'Gary Mensch lasted 4 hours before HR found his badge in the coffee machine. You have been selected to replace him. Congratulations.',
+  incident: 'Gary Mensch lasted 4 hours before HR found his badge in the coffee machine, still warm and lightly caffeinated. You have been selected to replace him. Congratulations.',
 } as const;
 
 export const INTERCOM_MESSAGES = [
@@ -21,6 +21,11 @@ export const INTERCOM_MESSAGES = [
   'INTERCOM: The UX Designer role was "sunsetted." Tom Bradley did not get the memo.',
   'INTERCOM: Payroll is your lifeline. Errors are Brenda\'s love language.',
   'INTERCOM: Booth 3 has a 94% turnover rate. You are the turnover.',
+  'INTERCOM: Please return all borrowed pens to the ceremonial pen puddle.',
+  'INTERCOM: If your stamp squeaks, that means it respects you.',
+  'INTERCOM: The copier is printing motivational fish again. Ignore them.',
+  'INTERCOM: Reminder - every form has two sides, plus one emotional side.',
+  'INTERCOM: Brenda has renamed lunch to "chewable compliance."',
 ] as const;
 
 export const LOCKED_RULE_TEASERS: Record<number, string> = {
@@ -37,11 +42,25 @@ export const CORRECT_TOASTS = [
   'CLEAN FILE — Dana Brooks would be proud (she\'s watching too)',
 ] as const;
 
+export const GOOFY_CORRECT_TOASTS = [
+  'STAMP HAPPY - The paper made a pleased little noise',
+  'FILE BEHAVIOR: TIDY - Brenda lowered one eyebrow',
+  'APPROVED WITH JAZZ HANDS - Payroll briefly sparkled',
+  'BOOTH 3 APPROVES - The clipboard salutes you',
+] as const;
+
 export const WRONG_TOAST_PREFIXES = [
   'BRENDA SIGH DETECTED —',
   'POLICY VIOLATION —',
   'GARY MOMENT —',
   'AUDIT TRAIL REGRET —',
+] as const;
+
+export const GOOFY_WRONG_TOAST_PREFIXES = [
+  'STAMP WENT SIDEWAYS -',
+  'PAPERWORK BONK -',
+  'CLIPBOARD PANIC -',
+  'BRENDA EYEBROW EVENT -',
 ] as const;
 
 const DEFAULT_EPILOGUE = {
@@ -96,9 +115,9 @@ export function pickRandom<T>(items: readonly T[]): T {
 }
 
 export function pickWrongToastPrefix(): string {
-  return pickRandom(WRONG_TOAST_PREFIXES);
+  return pickRandom([...WRONG_TOAST_PREFIXES, ...GOOFY_WRONG_TOAST_PREFIXES]);
 }
 
 export function pickCorrectToast(): string {
-  return pickRandom(CORRECT_TOASTS);
+  return pickRandom([...CORRECT_TOASTS, ...GOOFY_CORRECT_TOASTS]);
 }

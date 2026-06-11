@@ -9,6 +9,7 @@ import {
 } from '../data/namePools';
 import { fillTemplate, REFERENCE_BLURB_TEMPLATES, WAITING_QUIPS } from '../data/quipPools';
 import {
+  CERTIFICATIONS_BY_POSITION,
   EDUCATION_LEVELS,
   REFERRER_FIRST_NAMES,
   REFERRER_RELATIONSHIPS,
@@ -64,6 +65,11 @@ function buildCleanCandidate(
   const skillPool = SKILLS_BY_POSITION[position];
   const skillCount = 2 + Math.floor(rng() * 3);
   const skills = pickNUnique(skillPool, skillCount, rng);
+  const certificationPool = CERTIFICATIONS_BY_POSITION[position];
+  const certificationCount = rng() > 0.58 ? 1 + Math.floor(rng() * 2) : 0;
+  const certifications = certificationCount > 0
+    ? pickNUnique(certificationPool, certificationCount, rng)
+    : [];
 
   const salaryBase = Math.floor(60000 + rng() * 25000);
   const salaryExpectation = Math.min(salaryBase, day.salaryCap - 5000);
@@ -124,7 +130,7 @@ function buildCleanCandidate(
         { company: lastEmployer, role: position, years: workYears1 },
         { company: pickRandom(VERIFIED_COMPANIES.filter((c) => c !== lastEmployer), rng), role: position, years: workYears2 },
       ],
-      certifications: rng() > 0.5 ? ['Industry Certification'] : [],
+      certifications,
     },
     reference: {
       type: 'reference',

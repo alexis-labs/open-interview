@@ -1,27 +1,27 @@
 :root {
-  --color-bg: #1a1917;
-  --color-bg-deep: #121110;
-  --color-desk: #b8ad9a;
-  --color-desk-dark: #8f8578;
-  --color-desk-grain: #a39684;
-  --color-paper: #f2ece0;
-  --color-paper-warm: #ebe3d4;
-  --color-paper-shadow: #c9bfb0;
+  --color-bg: #23201a;
+  --color-bg-deep: #17130f;
+  --color-desk: #cdbd96;
+  --color-desk-dark: #9d8d6b;
+  --color-desk-grain: #b5a176;
+  --color-paper: #fff6d8;
+  --color-paper-warm: #ffeab0;
+  --color-paper-shadow: #d8bc72;
   --color-ink: #1c1a17;
   --color-ink-faded: #4a4640;
   --color-muted: #6b6560;
-  --color-accent: #2a4a3a;
-  --color-accent-glow: #3d6b52;
-  --color-hire: #1a6b3c;
-  --color-hire-bright: #22a055;
-  --color-reject: #9b2222;
-  --color-reject-bright: #c42b2b;
-  --color-correct: rgba(34, 160, 85, 0.18);
-  --color-wrong: rgba(196, 43, 43, 0.22);
-  --color-gold: #b8956a;
-  --color-fluoro: rgba(255, 252, 230, 0.06);
+  --color-accent: #0b7c7e;
+  --color-accent-glow: #18c3bd;
+  --color-hire: #168047;
+  --color-hire-bright: #29d36f;
+  --color-reject: #b02155;
+  --color-reject-bright: #f05186;
+  --color-correct: rgba(41, 211, 111, 0.2);
+  --color-wrong: rgba(240, 81, 134, 0.22);
+  --color-gold: #d99122;
+  --color-fluoro: rgba(255, 238, 131, 0.11);
   --color-glass: rgba(200, 210, 220, 0.08);
-  --color-frame: #3d3a36;
+  --color-frame: #4c3d2c;
   --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --font-display: 'IBM Plex Mono', monospace;
@@ -495,6 +495,51 @@ button:disabled {
   }
 }
 
+@keyframes summary-audit-card-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-18px) scale(0.96);
+    filter: blur(2px);
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(4px) scale(1.025);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes summary-audit-flash {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  35% {
+    opacity: 0.72;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes summary-audit-delta-pop {
+  0% {
+    transform: scale(0.7) rotate(-2deg);
+  }
+  55% {
+    transform: scale(1.18) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 @keyframes summary-stat-in {
   0% {
     opacity: 0;
@@ -571,5 +616,30 @@ button:disabled {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes goofy-paper-wobble {
+  0%,
+  100% {
+    transform: rotate(-0.25deg);
+  }
+  50% {
+    transform: rotate(0.25deg);
+  }
+}
+
+@keyframes goofy-stamp-squash {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  32% {
+    transform: translateY(7px) scale(1.08, 0.86) rotate(-1deg);
+  }
+  62% {
+    transform: translateY(-4px) scale(0.94, 1.08) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0) scale(1);
   }
 }

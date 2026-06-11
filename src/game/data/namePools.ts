@@ -13,6 +13,18 @@ export const FIRST_NAMES_FEMALE = [
   'Amara',
   'Leah',
   'Zoe',
+  'Aisha',
+  'Fatima',
+  'Mei',
+  'Ines',
+  'Noor',
+  'Valentina',
+  'Chiara',
+  'Lina',
+  'Anika',
+  'Grace',
+  'Camila',
+  'Marta',
 ] as const;
 
 export const FIRST_NAMES_MALE = [
@@ -28,6 +40,18 @@ export const FIRST_NAMES_MALE = [
   'Carlos',
   'Kenji',
   'Andre',
+  'Mateo',
+  'Arjun',
+  'Samir',
+  'Hugo',
+  'Ibrahim',
+  'Luca',
+  'Tariq',
+  'Jonas',
+  'Malik',
+  'Diego',
+  'Nikolai',
+  'Rafael',
 ] as const;
 
 export const LAST_NAMES = [
@@ -49,6 +73,20 @@ export const LAST_NAMES = [
   'Walsh',
   'Okafor',
   'Lindqvist',
+  'Martinho',
+  'Almeida',
+  'Silva',
+  'Kowalski',
+  'Dubois',
+  'Garcia',
+  'Santos',
+  'Rahman',
+  'Iversen',
+  'Bennett',
+  'Tanaka',
+  'Adebayo',
+  'Petrova',
+  'Costa',
 ] as const;
 
 export const UNAPPROVED_POSITIONS = [
@@ -58,4 +96,10 @@ export const UNAPPROVED_POSITIONS = [
   'Chief Vibes Officer',
   'Growth Hacker',
   'AI Prompt Engineer',
+  'Metaverse Coordinator',
+  'Synergy Architect',
+  'Culture Ninja',
+  'Remote Vibes Analyst',
+  'Innovation Wizard',
+  'Prompt Whisperer',
 ] as const;

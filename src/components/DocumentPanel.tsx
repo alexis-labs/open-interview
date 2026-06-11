@@ -58,8 +58,8 @@ export function DocumentPanel() {
           <>
             <div className={`stamp-splatter stamp-splatter--${stampType}`} />
             <div className={`stamp stamp--${stampType}`}>
-              <span className="stamp__text">{stampType === 'hire' ? 'HIRED' : 'REJECTED'}</span>
-              <span className="stamp__sub">OPENCORP HR</span>
+              <span className="stamp__text">{stampType === 'hire' ? 'HIRED!' : 'NOPE!'}</span>
+              <span className="stamp__sub">BOOTH 3 SAYS SO</span>
             </div>
           </>
         )}
@@ -92,7 +92,7 @@ function renderDocument(type: DocumentType, candidate: Candidate, salaryCap: num
             label="Salary Expectation"
             value={`$${candidate.application.salaryExpectation.toLocaleString()}`}
           />
-          <div className="doc-layout__cap-note">Daily cap: ${salaryCap.toLocaleString()}</div>
+          <div className="doc-layout__cap-note">Daily cap: ${salaryCap.toLocaleString()} / Brenda's snack budget</div>
           <div className="doc-layout__footer">OpenCorp Inc. — Where paperwork meets destiny</div>
         </div>
       );

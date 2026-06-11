@@ -2356,6 +2356,158 @@
   animation-delay: calc(0.55s + var(--row-i, 0) * 0.07s);
 }
 
+.day-summary__audit-reel {
+  --audit-gap: 0.42rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--audit-gap);
+  margin: 0 0 0.65rem;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-paper-shadow) transparent;
+}
+
+.day-summary__audit-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 4.15rem;
+  padding: 0.48rem 0.58rem;
+  overflow: hidden;
+  opacity: 0.34;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.035), transparent),
+    rgba(255, 252, 230, 0.42);
+  border: 1px dashed rgba(107, 101, 96, 0.3);
+  color: rgba(28, 26, 23, 0.38);
+  transform: scale(0.985);
+}
+
+.day-summary__audit-card--visible {
+  opacity: 1;
+  color: var(--color-ink);
+  border-style: solid;
+  animation: summary-audit-card-in 0.42s var(--ease-juice) both;
+}
+
+.day-summary__audit-card--correct {
+  border-color: rgba(26, 107, 60, 0.25);
+  background:
+    linear-gradient(90deg, rgba(34, 160, 85, 0.08), transparent 56%),
+    rgba(255, 252, 230, 0.72);
+}
+
+.day-summary__audit-card--wrong {
+  border-color: rgba(155, 34, 34, 0.3);
+  background:
+    linear-gradient(90deg, rgba(196, 43, 43, 0.1), transparent 56%),
+    rgba(255, 248, 242, 0.78);
+}
+
+.day-summary__audit-card--active {
+  box-shadow:
+    0 0 0 1px rgba(255, 252, 230, 0.68),
+    0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.day-summary__audit-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--color-paper);
+  background: var(--color-frame);
+  border-radius: 2px;
+}
+
+.day-summary__audit-card--correct .day-summary__audit-index {
+  background: var(--color-hire);
+}
+
+.day-summary__audit-card--wrong .day-summary__audit-index {
+  background: var(--color-reject);
+}
+
+.day-summary__audit-main {
+  min-width: 0;
+}
+
+.day-summary__audit-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.day-summary__audit-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.day-summary__audit-issues {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  line-height: 1.35;
+  color: var(--color-muted);
+}
+
+.day-summary__audit-delta {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 800;
+  min-width: 3.1rem;
+  text-align: right;
+  animation: summary-audit-delta-pop 0.38s var(--ease-juice) 0.06s both;
+}
+
+.day-summary__audit-delta--gain {
+  color: var(--color-hire);
+}
+
+.day-summary__audit-delta--loss {
+  color: var(--color-reject);
+}
+
+.day-summary__audit-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: left center;
+  opacity: 0;
+}
+
+.day-summary__audit-card--active .day-summary__audit-flash {
+  animation: summary-audit-flash 0.48s ease-out both;
+}
+
+.day-summary__audit-card--correct .day-summary__audit-flash {
+  background: linear-gradient(90deg, rgba(34, 160, 85, 0.3), transparent 70%);
+}
+
+.day-summary__audit-card--wrong .day-summary__audit-flash {
+  background: linear-gradient(90deg, rgba(196, 43, 43, 0.34), transparent 70%);
+}
+
+.day-summary__table--fallback {
+  display: none;
+}
+
 .day-summary__stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2448,6 +2600,14 @@
   margin: 0 0 1rem;
   font-size: 0.75rem;
   color: var(--color-muted);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.day-summary__note--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .day-summary__reset {
@@ -3821,6 +3981,18 @@
   justify-content: center;
   opacity: 0;
   animation: summary-actions-in 0.45s var(--ease-slide) 1.05s forwards;
+}
+
+.day-summary__actions--waiting {
+  pointer-events: none;
+  animation: none;
+  opacity: 0.18;
+  filter: grayscale(0.55);
+}
+
+.day-summary__actions--ready {
+  animation: summary-actions-in 0.42s var(--ease-slide) forwards;
+  pointer-events: auto;
 }
 
 .day-summary__continue,

@@ -7,7 +7,7 @@ export function CompanyBranding() {
       </svg>
       <div className="company-brand__text">
         <span className="company-brand__name">OPENCORP</span>
-        <span className="company-brand__tag">Human Resources · Screening Booth 3</span>
+        <span className="company-brand__tag">Human Resources / Screening Booth 3 / Paperwork Circus</span>
       </div>
     </div>
   );

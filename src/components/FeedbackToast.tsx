@@ -9,7 +9,7 @@ export function FeedbackToast() {
 
   return (
     <div key={juiceKey} className={`feedback-toast feedback-toast--${feedbackFlash}`}>
-      <span className="feedback-toast__icon">{feedbackFlash === 'correct' ? '✓' : '✗'}</span>
+      <span className="feedback-toast__icon">{feedbackFlash === 'correct' ? 'OK!' : 'BONK'}</span>
       <span>{feedbackToast}</span>
     </div>
   );
